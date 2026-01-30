@@ -3,10 +3,11 @@ import Home from "./pages/Home";
 import PlayerCreation from "./pages/PlayerCreation";
 import PlayerLookup from "./pages/PlayerLookup";
 import GameCreation from "./pages/GameCreation";
+import { PlayersProvider } from "./context/PlayersContext"
 
 function App() {
   return (
-    <>
+    <PlayersProvider>
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -15,7 +16,7 @@ function App() {
           <Route path="/game" element={<GameCreation />} />
         </Routes>
       </Router>
-    </>
+    </PlayersProvider>
   );
 }
 
