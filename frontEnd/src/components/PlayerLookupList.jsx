@@ -1,18 +1,28 @@
+import { useState } from "react";
 import { usePlayers } from "../context/PlayersContext";
+import SearchBar from "./SearchBar";
 
 function PlayerLookup() {
   const { players } = usePlayers();
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const filteredPlayers = players.filter((player) =>
+    `${player.first_name} ${player.last_name}`
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase())
+  );
 
   return (
     <div>
           <div>
-            <input
-              type="text"           
-              placeholder="Search Players"
-            />
+          <SearchBar 
+            placeholder="Search players..."
+            onSearch={setSearchTerm} 
+            // tells SearchBar to use setSearchTerm when onSearch is called
+          /> 
           </div>
           <div>
-            {players.map((player) => (
+            {filteredPlayers.map((player) => (
               <button key={player.id}>
                 <p>Player</p>
                 <p>
