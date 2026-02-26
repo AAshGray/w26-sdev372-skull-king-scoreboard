@@ -14,6 +14,7 @@ function PlayerGameHistory() {
             try {
                 const gamesData = await playerFunctions.getPlayerGames(id);
                 const playerData = await playerFunctions.getPlayer(id);
+                const statsData = await playerFunctions.getPlayerStats(id);
                 setGames(gamesData);
                 setPlayer(playerData.player);
             } catch (error) {
