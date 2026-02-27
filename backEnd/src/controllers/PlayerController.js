@@ -124,12 +124,12 @@ export const getPlayerStats = async (req, res) => {
       where: { player_id: id }
     });
 
-    const playerStatsData = [{
+    const playerStatsData = {
       total_games: playerStats.games_played,
       success_rate: playerStats.bet_success_rate,
       wins: playerStats.wins,
       losses: playerStats.losses
-    }];
+    };
 
     return res.status(200).json(playerStatsData);
   } catch (error) {
