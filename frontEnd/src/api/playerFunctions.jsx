@@ -1,5 +1,5 @@
 import axios from "axios";
-const API_URL = "";
+const API_URL = "/api";
 
 async function createPlayer(playerInfo) {
   const { first_name, last_name } = playerInfo;

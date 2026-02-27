@@ -37,7 +37,7 @@ function PlayerGameHistory() {
                 <section className="stats">
                     <h2>Player Stats</h2>
                     <p><strong>Total Games:</strong> {stats.total_games}</p>
-                    <p><strong>Success Rate:</strong>{stats.success_rate}</p>
+                    <p><strong>Success Rate:</strong> {stats.success_rate}</p>
                     <p><strong>Games Won:</strong> {stats.wins}</p>
                     <p><strong>Games Lost:</strong> {stats.losses}</p>
                 </section>)
