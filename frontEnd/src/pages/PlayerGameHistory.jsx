@@ -32,6 +32,7 @@ function PlayerGameHistory() {
 
     return (
         <div className="container">
+            <h1>{player ? `${player.first_name} ${player.last_name}` : "Player"}</h1>
             <button onClick={() => navigate(-1)} style={{ marginBottom: "20px" }}>Back</button>
             {stats && (
                 <section className="stats">
@@ -43,7 +44,7 @@ function PlayerGameHistory() {
                 </section>)
             }
             <section className="game-history">
-            <h2>Game History: {player ? `${player.first_name} ${player.last_name}` : "Player"}</h2>
+            <h2>Game History</h2>
             {games.length === 0 ? (
                 <p>No games played yet.</p>
             ) : (
