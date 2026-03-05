@@ -38,5 +38,13 @@ test.describe("Player Creation", () => {
 
         await expect(page.getByLabel("First Name")).toHaveValue("");
         await expect(page.getByLabel("Last Name")).toHaveValue("");
+
+        await page.goto("/players");
+        await expect(
+            page.getByRole("heading", { name: "All Players" })
+        ).toBeVisible();
+        await expect(
+            page.getByText(`${firstName} ${lastName}`)
+        ).toBeVisible({ timeout: 10_000 });
     });
 });
