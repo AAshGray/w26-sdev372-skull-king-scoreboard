@@ -13,7 +13,7 @@ export const getPlayerGames = async (req, res) => {
           model: Game,
         },
       ],
-      order: [[Game, "data_played", "DESC"]], // Sort by newest first
+      order: [[Game, "date_played", "DESC"]], // Sort by newest first
     });
 
     return res.status(200).json(playerGames);
@@ -123,6 +123,8 @@ export const getPlayerStats = async (req, res) => {
     const playerStats = await Stats.findOne({
       where: { player_id: id }
     });
+
+    if (!playerStats) return res.status(404).json({ message: "Cannot find player stats" });
 
     const playerStatsData = {
       total_games: playerStats.games_played,

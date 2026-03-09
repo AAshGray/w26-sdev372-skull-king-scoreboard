@@ -13,10 +13,13 @@ function PlayerGameHistory() {
 
     useEffect(() => {
         const fetchData = async () => {
+            setLoading(true);
             try {
-                const gamesData = await playerFunctions.getPlayerGames(id);
-                const playerData = await playerFunctions.getPlayer(id);
-                const statsData = await playerFunctions.getPlayerStats(id);
+                const [ gamesData, playerData, statsData ] = await Promise.all([
+                    playerFunctions.getPlayerGames(id),
+                    playerFunctions.getPlayer(id),
+                    playerFunctions.getPlayerStats(id)
+                ]);
                 setGames(gamesData);
                 setPlayer(playerData.player);
                 setStats(statsData);
@@ -55,9 +58,10 @@ function PlayerGameHistory() {
                         {games.map((gameItem) => {
                             const game = gameItem.game;
                             if (!game) return null;
+                            console.log("game.date_played:",game.date_played);
                             return (
                                 <div key={gameItem.id} className="card game-card">
-                                    <p><strong>Date:</strong> {game?.data_played ? new Date(game.data_played).toLocaleDateString() : "Unknown Date"}</p>
+                                    <p><strong>Date:</strong> {game?.date_played ? new Date(game.date_played).toLocaleDateString() : "Unknown Date"}</p>
                                     <p><strong>Game ID:</strong> {game?.id ?? "N/A"}</p>
                                     <p><strong>Rounds:</strong> {game?.rounds_needed ?? "Unknown"}</p>
                                     <p><strong>Status:</strong> {game?.finished === true ? "Finished" : game?.finished === false ? "In Progress" : "Unknown"}</p>

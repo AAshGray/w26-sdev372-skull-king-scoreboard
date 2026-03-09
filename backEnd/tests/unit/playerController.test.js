@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, afterEach } from 'vitest';
+import { describe, it, expect, vi, afterAll, beforeEach } from 'vitest';
 import * as playerController from '../../src/controllers/PlayerController.js';
 import { players, stats, games, rounds, playerRounds, playerGames } from '../utils/mockData.js';
 import db from '../../src/models/index.js';
@@ -15,8 +15,11 @@ vi.mock('../../src/models/index.js', () => ({
 }));
 
 describe('Player Controller', () => {
+    beforeEach(() => {
+        vi.clearAllMocks();
+    });
 
-    afterEach(() => {
+    afterAll(() => {
         vi.restoreAllMocks();
     });
 
@@ -46,7 +49,7 @@ describe('Player Controller', () => {
                     ...pg,
                     Game: games.find(g => g.id === pg.game_id)
                 }))
-                .sort((a, b) => new Date(b.Game.data_played) - new Date(a.Game.data_played));
+                .sort((a, b) => new Date(b.Game.date_played) - new Date(a.Game.date_played));
 
             const spy = vi.spyOn(PlayerGame, 'findAll').mockResolvedValue(expectedData);
 
@@ -60,7 +63,7 @@ describe('Player Controller', () => {
                             model: Game,
                         }),
                     ]),
-                    order: [[Game, "data_played", "DESC"]],
+                    order: [[Game, "date_played", "DESC"]],
                 })
             );
             
@@ -89,7 +92,7 @@ describe('Player Controller', () => {
                             model: Game,
                         }),
                     ]),
-                    order: [[Game, "data_played", "DESC"]],
+                    order: [[Game, "date_played", "DESC"]],
                 })
             );
 

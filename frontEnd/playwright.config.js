@@ -9,8 +9,9 @@ export default defineConfig({
     forbidOnly: !!process.env.CI,
     retries: 0,
     use: {
-        baseURL: "http://localhost:80",
+        baseURL: process.env.NODE_ENV === "test" ? "http://frontend:80": "http://localhost:80",
         trace: "on-first-retry",
+        screenshot: 'only-on-failure',
     },
 
     projects: [
@@ -20,7 +21,7 @@ export default defineConfig({
         },
     ],
 
-    webServer: {
+    webServer: process.env.NODE_ENV === "test" ? undefined : {
         command: "npm run dev",
         url: "http://localhost:80",
         reuseExistingServer: !process.env.CI,
